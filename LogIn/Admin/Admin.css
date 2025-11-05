@@ -2,7 +2,6 @@ body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #f5f5f5;
-    display: flex;
 }
 
 /* Sidebar */
@@ -48,7 +47,7 @@ body {
 
 /* Main Content */
 .main-content {
-    margin-left: 240px;
+    margin-left: 120px;
     padding: 30px;
     background: #f4f4f4;
     min-height: 100vh;
@@ -215,8 +214,8 @@ button.approve:hover {
     to {opacity: 1;}
 }
 
-/* Override default link styles */
-a:-webkit-any-link {
+/* Override default link styles - only for specific elements, not navbar */
+.edit-btn, .remove-btn {
     background-color: #e74c3c;
     color: #fff;
     padding: 6px 12px;

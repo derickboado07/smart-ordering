@@ -24,6 +24,7 @@ $approvedUsers = $conn->query("
 <meta charset="UTF-8">
 <title>Admin Dashboard</title>
 <link rel="stylesheet" href="Admin.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
 
 <style>
 /* Extra CSS for Refresh Button */
@@ -57,21 +58,10 @@ $approvedUsers = $conn->query("
 </head>
 <body>
 
-<!-- SIDEBAR -->
-<div class="sidebar">
-    <h2>Admin Panel</h2>
-    <ul>
-        <li><a href="#" class="active">Dashboard</a></li>
-        <li><a href="../../Inventory/ProductConfiguration.php">Product Configuration</a></li>
-        <li><a href="../../Inventory/Inventory.php">Inventory Management</a></li>
-        <li><a href="../../SalesDashboard/SalesReportPage.php">Sales Dashboard</a></li>
-        <li><a href="edit_admin.php">Edit Admin Details</a></li>
-        <li><a href="#" onclick="if(confirm('Logout?')){window.location.href='admin_logout.php';}">Logout</a></li>
-    </ul>
-</div>
+<?php include 'include/navbar.php'; ?>
 
 <!-- MAIN CONTENT -->
-<div class="main-content">
+<div class="main-content" style="margin-left: 120px;">
     <!-- 🔄 Refresh Button on the Top Right -->
     <button class="refresh-btn" onclick="refreshDashboard()">⟳ Refresh Dashboard</button>
 

@@ -49,6 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta charset="UTF-8">
     <title>Edit User Details</title>
     <link rel="stylesheet" href="Admin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <style>
         .edit-form {
     position: fixed;                /* Keeps it in the same place even when scrolling */
@@ -138,16 +139,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 </head>
 <body>
 
-<div class="sidebar">
-    <h2>Admin Panel</h2>
-    <ul>
-        <li><a href="Admin.php">Dashboard</a></li>
-        <li><a href="edit_admin.php">Edit Admin Details</a></li>
-        <li><a href="#" onclick="if(confirm('Logout?')){window.location.href='admin_logout.php';}">Logout</a></li>
-    </ul>
-</div>
+<?php include 'include/navbar.php'; ?>
 
-<div class="main-content">
+<!-- MAIN CONTENT -->
+<div class="main-content" style="margin-left: 120px;">
     <div class="edit-form">
         <h2>Edit User Details</h2>
         <form method="POST">
