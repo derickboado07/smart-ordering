@@ -132,7 +132,7 @@
 </style>
 
 <div class="left-navbar">
-    <img src="../../Images/Icon.png" alt="Arat Coffee Logo" />
+    <img src="/smart-ordering/Images/Icon.png" alt="Arat Coffee Logo" />
 
     <!-- Admin-specific menu items -->
     <a href="/smart-ordering/LogIn/Admin/Admin.php" class="icon active">
