@@ -135,31 +135,31 @@
     <img src="../../Images/Icon.png" alt="Arat Coffee Logo" />
 
     <!-- Admin-specific menu items -->
-    <a href="Admin.php" class="icon active">
+    <a href="/smart-ordering/LogIn/Admin/Admin.php" class="icon active">
       <i class="fa-solid fa-tachometer-alt"></i>
       <h6>Dashboard</h6>
     </a>
-    <a href="edit_user.php" class="icon">
+    <a href="/smart-ordering/LogIn/Admin/edit_user.php" class="icon">
       <i class="fa-solid fa-user-edit"></i>
       <h6>Edit User</h6>
     </a>
-    <a href="edit_admin.php" class="icon">
+    <a href="/smart-ordering/LogIn/Admin/edit_admin.php" class="icon">
       <i class="fa-solid fa-user-shield"></i>
       <h6>Edit Admin</h6>
     </a>
-    <a href="../../Inventory/ProductConfiguration.php" class="icon">
+    <a href="/smart-ordering/Inventory/ProductConfiguration.php" class="icon">
       <i class="fa-solid fa-cogs"></i>
       <h6>Customization</h6>
     </a>
-    <a href="../../Inventory/Inventory.php" class="icon">
+    <a href="/smart-ordering/Inventory/Inventory.php" class="icon">
       <i class="fa-solid fa-warehouse"></i>
       <h6>Inventory</h6>
     </a>
-    <a href="../../SalesDashboard/SalesReportPage.php" class="icon">
+    <a href="/smart-ordering/SalesDashboard/SalesReportPage.php" class="icon">
       <i class="fa-solid fa-chart-line"></i>
       <h6>Sales</h6>
     </a>
-    <a href="admin_logout.php" class="icons">
+    <a href="/smart-ordering/LogIn/Admin/admin_logout.php" class="icons">
       <i class="fa-solid fa-arrow-right-from-bracket"></i>
       <h6>Sign-Out</h6>
     </a>

@@ -13,10 +13,11 @@ if (!isset($_SESSION['admin_username'])) {
     <title>Product Configuration</title>
     <link rel="stylesheet" href="../HomePage/MainHome.css">
       <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <link rel="stylesheet" href="../LogIn/Admin/include/navbar.css">
     <link rel="stylesheet" href="ProductConfiguration.css">
   </head>
   <body>
-    <?php include '../include/navbar.php'; ?>
+    <?php include '../LogIn/Admin/include/navbar.php'; ?>
 
     <div class="right-Menu">
         <div class="content-wrapper" style="background: transparent; box-shadow: none;">

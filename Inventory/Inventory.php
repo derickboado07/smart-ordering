@@ -6,6 +6,7 @@
     <title>Inventory Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
     <link rel="stylesheet" href="../HomePage/MainHome.css" />
+    <link rel="stylesheet" href="../LogIn/Admin/include/navbar.css" />
     <link rel="stylesheet" href="Inventory.css" />
 </head>
 <body>
@@ -15,7 +16,7 @@ if (!isset($_SESSION['admin_username'])) {
     header("Location: ../LogIn/Users/User.php");
     exit();
 }
-include '../include/navbar.php';
+include '../LogIn/Admin/include/navbar.php';
 ?>
 
     <div class="right-Menu">
