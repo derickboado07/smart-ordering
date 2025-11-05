@@ -47,8 +47,8 @@ include '../backend/db_connect.php';
     <h2 class="coffee-type-title">ESPRESSO SERIES</h2>
     <div class="coffee-grid">
       <?php
-  // UPDATED: Select selling_price as price from menu
-  $sql = "SELECT id, name, selling_price as price, image FROM menu WHERE (category = 'espresso' OR category IS NULL) AND (status IS NULL OR status = 'active') ORDER BY name";
+      // UPDATED: Select id from menu table
+      $sql = "SELECT id, name, price, image FROM menu WHERE (category = 'espresso' OR category IS NULL) AND status = 'active' ORDER BY name";
       if ($res = mysqli_query($conn, $sql)) {
         if (mysqli_num_rows($res) > 0) {
           while ($row = mysqli_fetch_assoc($res)) {
@@ -78,8 +78,8 @@ include '../backend/db_connect.php';
     <h2 class="coffee-type-title">SIGNATURE SERIES</h2>
     <div class="coffee-grid">
       <?php
-  // UPDATED: Select selling_price as price from menu
-  $sql2 = "SELECT id, name, selling_price as price, image FROM menu WHERE category = 'signature' AND (status IS NULL OR status = 'active') ORDER BY name";
+      // UPDATED: Select id from menu table
+      $sql2 = "SELECT id, name, price, image FROM menu WHERE category = 'signature' AND status = 'active' ORDER BY name";
       if ($res2 = mysqli_query($conn, $sql2)) {
         if (mysqli_num_rows($res2) > 0) {
           while ($row = mysqli_fetch_assoc($res2)) {

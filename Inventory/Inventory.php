@@ -43,7 +43,7 @@
                                 <th>ID</th>
                                 <th>Menu Item</th>
                                 <th>Category</th>
-                                <th>Selling Price</th>
+                                <th>Price</th>
                                 <th>Current Stock</th>
                                 <th>Status</th>
                                 <th>Last Updated</th>
@@ -94,7 +94,6 @@
                             <option value="">Choose a menu item...</option>
                         </select>
                         <input type="text" id="menuSelectReadonly" readonly style="display:none; margin-top:8px;" />
-                        <div id="menuCostDisplay" style="display:none; margin-top:6px; color:#666; font-size:0.95rem;">Cost Price: ₱<span id="menuCostValue">0.00</span></div>
                         <input type="hidden" id="menuId" name="menu_id" />
                     </div>
                     <div class="form-group">
