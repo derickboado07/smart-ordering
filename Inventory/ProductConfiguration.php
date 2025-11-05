@@ -1,4 +1,9 @@
 <?php
+session_start();
+if (!isset($_SESSION['admin_username'])) {
+    header("Location: ../LogIn/Users/User.php");
+    exit();
+}
 ?>
 <!doctype html>
 <html>

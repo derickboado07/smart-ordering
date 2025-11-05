@@ -9,7 +9,14 @@
     <link rel="stylesheet" href="Inventory.css" />
 </head>
 <body>
-<?php include '../include/navbar.php'; ?>
+<?php
+session_start();
+if (!isset($_SESSION['admin_username'])) {
+    header("Location: ../LogIn/Users/User.php");
+    exit();
+}
+include '../include/navbar.php';
+?>
 
     <div class="right-Menu">
         <div class="content-wrapper" style="background: transparent; box-shadow: none;">

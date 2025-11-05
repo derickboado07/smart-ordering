@@ -8,7 +8,14 @@
   <link rel="stylesheet" href="Sales Report.css" />
 </head>
 <body>
-<?php include '../include/navbar.php'; ?>
+<?php
+session_start();
+if (!isset($_SESSION['admin_username'])) {
+    header("Location: ../LogIn/Users/User.php");
+    exit();
+}
+include '../include/navbar.php';
+?>
 
   <!-- Main Content -->
   <div class="main-content">
