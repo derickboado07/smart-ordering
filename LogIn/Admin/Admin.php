@@ -77,7 +77,7 @@ $approvedUsers = $conn->query("
 
     <!-- Create User (Admin only) -->
     <section class="create-user-section">
-        <h2>Create User</h2>
+        <h2 style="font-size: 32px;">Create User</h2>
         <form id="createUserForm">
             <div class="create-user-row">
                 <input type="text" name="surname" id="cu_surname" placeholder="Surname" required />
@@ -117,11 +117,11 @@ $approvedUsers = $conn->query("
             </tbody>
         </table>
     <?php else: ?>
-        <p>No pending users.</p>
+        
     <?php endif; ?>
 
     <!-- Approved Users Table -->
-    <h1 style="margin-top:40px;">Approved Users</h1>
+    <h1 style="margin-top:40px;">Active Users</h1>
     <table id="usersTable">
         <thead>
             <tr>
