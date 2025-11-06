@@ -139,10 +139,6 @@
       <i class="fa-solid fa-tachometer-alt"></i>
       <h6>Dashboard</h6>
     </a>
-    <a href="/smart-ordering/LogIn/Admin/edit_user.php" class="icon">
-      <i class="fa-solid fa-user-edit"></i>
-      <h6>Edit User</h6>
-    </a>
     <a href="/smart-ordering/LogIn/Admin/edit_admin.php" class="icon">
       <i class="fa-solid fa-user-shield"></i>
       <h6>Edit Admin</h6>
