@@ -97,7 +97,8 @@ if(isset($_SESSION['error'])): ?>
 
         <!-- forget and register part -->
         <div class="register-link">
-            Don't have an account? Please contact your administrator to request an account.
+            Don't have an account? 
+            <a href="Userlog.php">Register</a>
         </div>
         <div class="forgot-link">
             Forgot your password?

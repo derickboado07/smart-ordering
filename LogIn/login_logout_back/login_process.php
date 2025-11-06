@@ -73,13 +73,13 @@ if ($stmt = $conn->prepare("SELECT admin_id, name, username, password, email FRO
 /* -------------------------
    2) Check Users table
    ------------------------- */
-if ($stmt2 = $conn->prepare("SELECT user_id, full_name, username, password, status, must_change_password FROM users WHERE username = ?")) {
+if ($stmt2 = $conn->prepare("SELECT user_id, full_name, username, password, status FROM users WHERE username = ?")) {
     $stmt2->bind_param('s', $username);
     $stmt2->execute();
     $stmt2->store_result();
 
     if ($stmt2->num_rows > 0) {
-    $stmt2->bind_result($user_id, $full_name, $user_username, $user_password, $user_status, $must_change_password);
+        $stmt2->bind_result($user_id, $full_name, $user_username, $user_password, $user_status);
         $stmt2->fetch();
 
         // If account pending -> don't allow login
