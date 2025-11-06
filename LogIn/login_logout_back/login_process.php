@@ -73,13 +73,13 @@ if ($stmt = $conn->prepare("SELECT admin_id, name, username, password, email FRO
 /* -------------------------
    2) Check Users table
    ------------------------- */
-if ($stmt2 = $conn->prepare("SELECT user_id, full_name, username, password, status FROM users WHERE username = ?")) {
+if ($stmt2 = $conn->prepare("SELECT user_id, full_name, username, password, status, must_change_password FROM users WHERE username = ?")) {
     $stmt2->bind_param('s', $username);
     $stmt2->execute();
     $stmt2->store_result();
 
     if ($stmt2->num_rows > 0) {
-        $stmt2->bind_result($user_id, $full_name, $user_username, $user_password, $user_status);
+    $stmt2->bind_result($user_id, $full_name, $user_username, $user_password, $user_status, $must_change_password);
         $stmt2->fetch();
 
         // If account pending -> don't allow login
@@ -96,6 +96,15 @@ if ($stmt2 = $conn->prepare("SELECT user_id, full_name, username, password, stat
             $_SESSION['user_id'] = $user_id;
             $_SESSION['username'] = $user_username;
             $_SESSION['full_name'] = $full_name;
+
+            // If user must change password on first login, redirect to change page
+            if (isset($must_change_password) && $must_change_password == 1) {
+                // keep session but send to change password
+                $_SESSION['must_change_password'] = 1;
+                $stmt2->close();
+                header("Location: ../Users/change_password.php");
+                exit();
+            }
 
             // update is_online and time_in if those columns exist
             $colCheck = $conn->query("SHOW COLUMNS FROM users LIKE 'is_online'");
@@ -125,6 +134,13 @@ if ($stmt2 = $conn->prepare("SELECT user_id, full_name, username, password, stat
             $_SESSION['username'] = $user_username;
             $_SESSION['full_name'] = $full_name;
 
+            // If user must change password on first login, redirect to change page
+            if (isset($must_change_password) && $must_change_password == 1) {
+                $_SESSION['must_change_password'] = 1;
+                $stmt2->close();
+                header("Location: ../Users/change_password.php");
+                exit();
+            }
             // update is_online/time_in if present
             $colCheck = $conn->query("SHOW COLUMNS FROM users LIKE 'is_online'");
             if ($colCheck && $colCheck->num_rows > 0) {

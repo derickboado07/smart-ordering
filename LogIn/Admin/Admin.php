@@ -54,6 +54,13 @@ $approvedUsers = $conn->query("
 }
 #notificationMessage.success { background-color: #2ecc71; color: white; }
 #notificationMessage.error { background-color: #e74c3c; color: white; }
+/* Create User styles */
+.create-user-section { margin-top:20px; margin-bottom:20px; padding:18px; border:1px solid #ddd; border-radius:8px; max-width:920px; background:#fff; }
+.create-user-row { display:flex; gap:12px; align-items:center; }
+.create-user-row input[type="text"], .create-user-row input[type="email"] { flex:1; padding:12px 14px; font-size:16px; height:48px; border:1px solid #ccc; border-radius:6px; }
+.create-user-row button[type="submit"] { padding:12px 20px; background:#2ecc71; color:white; border:none; border-radius:6px; cursor:pointer; font-size:16px; height:48px; }
+.create-user-section h2 { margin:0 0 8px 0; font-size:20px; }
+.create-user-note { margin-top:10px; color:#666; }
 </style>
 </head>
 <body>
@@ -65,8 +72,22 @@ $approvedUsers = $conn->query("
     <!-- 🔄 Refresh Button on the Top Right -->
     <button class="refresh-btn" onclick="refreshDashboard()">⟳ Refresh Dashboard</button>
 
-    <h1>Pending User Approvals</h1>
+    
     <div id="notificationMessage"></div>
+
+    <!-- Create User (Admin only) -->
+    <section class="create-user-section">
+        <h2>Create User</h2>
+        <form id="createUserForm">
+            <div class="create-user-row">
+                <input type="text" name="surname" id="cu_surname" placeholder="Surname" required />
+                <input type="text" name="firstname" id="cu_firstname" placeholder="First Name" required />
+                <input type="email" name="email" id="cu_email" placeholder="Email" required />
+                <button type="submit">Create</button>
+            </div>
+        </form>
+        <p class="create-user-note">Admin will create accounts and users will receive credentials by email. On first login users must change their password.</p>
+    </section>
 
     <!-- Pending Users Table -->
     <?php if ($pendingUsers->num_rows > 0): ?>
@@ -229,6 +250,56 @@ function refreshDashboard() {
         msgDiv.style.display = 'block';
     });
 }
+
+// Create User form handler
+document.getElementById('createUserForm').addEventListener('submit', function(e){
+    e.preventDefault();
+    const form = e.currentTarget;
+    const fd = new FormData(form);
+    fetch('create_user.php', { method: 'POST', body: fd })
+    .then(r => r.text())
+    .then(text => {
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (err) {
+            throw new Error('Server response (non-JSON): ' + text);
+        }
+        return data;
+    })
+    .then(data => {
+        const msgDiv = document.getElementById('notificationMessage');
+        // Build message
+        let message = data.message || (data.success ? 'User created' : 'Error');
+        if (data.email_sent === false) {
+            message += ' — email delivery failed. Temporary password is shown below for manual delivery.';
+        }
+
+        msgDiv.innerText = message;
+        msgDiv.className = data.success ? 'success' : 'error';
+        msgDiv.style.display = 'block';
+        setTimeout(() => msgDiv.style.display = 'none', 8000);
+
+        if (data.success && data.user) {
+            addUserToTable(data.user);
+            form.reset();
+
+            // If email failed, show credentials to admin to copy/send manually
+            if (data.email_sent === false) {
+                const cred = `Username: ${data.user.username}\nPassword: ${data.plain_password}`;
+                // show a prompt-like alert so admin can copy credentials
+                alert('Email delivery failed. Please copy credentials and send to user manually:\n\n' + cred);
+            }
+        }
+    })
+    .catch((err) => {
+        const msgDiv = document.getElementById('notificationMessage');
+        msgDiv.innerText = err.message || 'Server error creating user.';
+        msgDiv.className = 'error';
+        msgDiv.style.display = 'block';
+        console.error('Create user error:', err);
+    });
+});
 </script>
 </body>
 </html>

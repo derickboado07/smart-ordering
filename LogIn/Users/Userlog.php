@@ -48,49 +48,9 @@ body.loaded {
 
     <div class="right-half">
         <div class="form-container">
-            <h2>Account Information</h2>
-
-            <!-- ✅ Now sends data to Verify.php -->
-            <form id="signup-form" action="Verify.php" method="POST" enctype="multipart/form-data">
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="surname">Surname</label>
-                        <input type="text" id="surname" name="surname" placeholder="Enter your Surname" maxlength="16" required />
-                    </div>
-                    <div class="input-group">
-                        <label for="firstname">First Name</label>
-                        <input type="text" id="firstname" name="firstname" placeholder="Enter your First Name" maxlength="16" required />
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="username">Username</label>
-                        <input type="text" id="username" name="username" placeholder="Enter your Username" maxlength="16" required />
-                    </div>
-                    <div class="input-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" placeholder="Enter your Email" maxlength="50" required />
-                    </div>
-                </div>
-
-                <div class="form-row">
-                    <div class="input-group">
-                        <label for="password">Password</label>
-                        <input type="password" id="password" name="password" placeholder="Enter your Password" maxlength="12" required />
-                        <small id="strengthMessage" class="strength"></small>
-                    </div>
-                    <div class="input-group">
-                        <label for="confirm-password">Confirm Password</label>
-                        <input type="password" id="confirm-password" name="confirm_password" placeholder="Confirm Password" maxlength="12" required />
-                    </div>
-                </div>
-
-        
-
-                <!-- ✅ Real submit button (no more <a>) -->
-                <button type="submit" class="submit-btn">SUBMIT</button>
-            </form>
+            <h2>Registration Disabled</h2>
+            <p>Public registration has been disabled. Accounts are now created by administrators only.</p>
+            <p>Please contact your administrator to request an account.</p>
         </div>
     </div>
 

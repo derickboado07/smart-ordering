@@ -1,0 +1,4 @@
+2025-11-06 02:23:27 - create_user.php: failed to send email to derickboado1@gmail.com - SMTP Error: Could not authenticate.
+2025-11-06 02:28:17 - create_user.php: failed to send email to derickboado1@gmail.com - SMTP Error: Could not authenticate.
+2025-11-06 02:29:30 - create_user.php: failed to send email to boadoangelo6@gmail.com - SMTP Error: Could not authenticate.
+2025-11-06 03:59:20 - create_user.php: exception while sending email to derickboado1@gmail.com - SMTP Error: Could not authenticate.
