@@ -73,6 +73,8 @@ try {
 
     // Ensure unique username
     function generate_unique_username($conn, $base) {
+        $maxLen = 32; // cap usernames to a reasonable length
+        $base = substr($base, 0, $maxLen);
         $username = $base;
         $i = 0;
         while (true) {
@@ -86,18 +88,54 @@ try {
             }
             $stmt->close();
             $i++;
-            $username = $base . $i;
+            // ensure suffix fits within max length
+            $suffix = (string)$i;
+            $prefix = substr($base, 0, $maxLen - strlen($suffix));
+            $username = $prefix . $suffix;
         }
         return $username;
     }
 
-    // Generate password (3 letters from first name + 3-digit number)
+    // Generate a temporary password meeting policy:
+    // - minimum 8 characters
+    // - includes at least 1 special character
+    // - includes at least 1 number
     function generate_temp_password($firstname) {
-        $part = substr($firstname, 0, 3);
-        if (strlen($part) < 3) $part = str_pad($part, 3, 'x');
-        $part = ucfirst(strtolower($part)); // ensures an uppercase letter
-        $num = rand(100, 999);
-        return $part . $num;
+        $length = 10; // default length (>=8)
+
+        // Character sets
+        $digits = '0123456789';
+        $special = '!@#$%^&*()-_=+[]{}<>?';
+        $letters = 'abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+        // Ensure at least one required char from each category
+        $passwordChars = [];
+
+        // Helper to pick a secure random character from a string
+        $pick = function(string $pool) {
+            $max = strlen($pool) - 1;
+            $idx = function_exists('random_int') ? random_int(0, $max) : mt_rand(0, $max);
+            return $pool[$idx];
+        };
+
+        $passwordChars[] = $pick($digits);
+        $passwordChars[] = $pick($special);
+        // Fill remaining with a mix of letters, digits, and special
+        $all = $letters . $digits . $special;
+        while (count($passwordChars) < $length) {
+            $passwordChars[] = $pick($all);
+        }
+
+        // Shuffle securely
+        $count = count($passwordChars);
+        for ($i = $count - 1; $i > 0; $i--) {
+            $j = function_exists('random_int') ? random_int(0, $i) : mt_rand(0, $i);
+            $tmp = $passwordChars[$i];
+            $passwordChars[$i] = $passwordChars[$j];
+            $passwordChars[$j] = $tmp;
+        }
+
+        return implode('', $passwordChars);
     }
 
     $base = build_base_username($firstname, $surname);

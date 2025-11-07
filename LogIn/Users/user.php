@@ -83,7 +83,7 @@ if(isset($_SESSION['error'])): ?>
             <label for="username">Username</label>
             <div class="input-row">
                 <div class="icon-box"><i class="fas fa-user"></i></div>
-                <input type="text" id="username" name="username" placeholder="Enter your username" maxlength="16" required />
+                <input type="text" id="username" name="username" placeholder="Enter your username" maxlength="64" required />
             </div>
         </div>
         <div class="input-group">
