@@ -60,7 +60,7 @@ $order_ids = [$order_id];
       <p><strong>Date:</strong> <span id="paymentDate"></span></p>
   <p>Subtotal: <span id="subtotal">₱<?php echo number_format($order_total, 2); ?></span></p>
   <p>VAT (included): <span id="vatInfo">₱<?php echo number_format($order_total - ($order_total / 1.12), 2); ?></span></p>
-  <p>Total Pay: <span idtotalPay">₱<?php echo number_format($order_total, 2); ?></span></p>
+  <p>Total Pay: <span id="totalPay">₱<?php echo number_format($order_total, 2); ?></span></p>
       <p>Discount: <span id="discountInfo">None</span></p>
   <p><b>Final Total: <span id="finalPay">₱<?php echo number_format($order_total, 2); ?></span></b></p>
 
@@ -131,8 +131,24 @@ $order_ids = [$order_id];
     </div>
   </div>
 
-  <script src="payment.js"></script>
+  <?php $v = @filemtime(__DIR__ . '/payment.js') ?: time(); ?>
+  <script src="payment.js?v=<?php echo $v; ?>"></script>
 
+  <!-- Inline Receipt Viewer -->
+  <div id="receiptSection" style="display:none; position:fixed; inset:0; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.6); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#fff; width:90%; max-width:900px; height:90%; border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,0.3); display:flex; flex-direction:column;">
+      <div style="padding:10px 14px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #eee;">
+        <h3 style="margin:0; font-family:Arial, sans-serif;">Receipt Preview</h3>
+        <div>
+          <button id="printReceiptBtn" style="margin-right:8px; padding:8px 12px; background:#2b7cff; color:#fff; border:none; border-radius:4px; cursor:pointer;">Print</button>
+          <button id="closeReceiptBtn" style="padding:8px 12px; background:#888; color:#fff; border:none; border-radius:4px; cursor:pointer;">Close</button>
+        </div>
+      </div>
+      <div style="flex:1;">
+        <iframe id="receiptFrame" title="Receipt" style="width:100%; height:100%; border:0;" src="about:blank"></iframe>
+      </div>
+    </div>
+  </div>
 
   <script>
 // Pass the order_id to your payment JavaScript

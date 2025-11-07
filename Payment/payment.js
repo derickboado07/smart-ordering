@@ -1,4 +1,7 @@
+window.__payInit = window.__payInit || false;
 window.onload = function () {
+  if (window.__payInit) return; // guard against double init
+  window.__payInit = true;
   // Show current date & time
   const now = new Date();
   const paymentDateEl = document.getElementById("paymentDate");
@@ -152,15 +155,29 @@ window.onload = function () {
             console.log("Payment response:", result);
 
             if (result.status === 'success') {
-              alert('Payment processed successfully! Redirecting to order list.');
+              const oid = result.order_id || (orderIds && orderIds[0]) || null;
+              // Show receipt inline instead of redirecting
+              try {
+                if (!oid) throw new Error('Missing order_id in response');
+                showReceipt(oid);
+              } catch (e) {
+                console.error('Failed to display receipt inline:', e);
+                alert('Payment processed! Opening receipt in a new tab...');
+                if (oid) {
+                  window.open('../backend/generate_receipt.php?order_id=' + encodeURIComponent(oid) + '&stream=1', '_blank');
+                }
+              }
               confirmBtn.style.display = 'none';
               if (listOrdersLink) listOrdersLink.style.display = 'block';
-              
-              // Add auto-redirect after 2 seconds
-              setTimeout(() => {
-                  window.location.href = "../List-Orders/Orderlist.php";
-              }, 2000);
           } else {
+                // Even on error, attempt to show whatever receipt we can (may show helpful error page)
+                const oid = (orderIds && orderIds[0]) || null;
+                if (oid) {
+                  try { showReceipt(oid); } catch (e) {
+                    console.error('Failed to display receipt inline after error:', e);
+                    window.open('../backend/generate_receipt.php?order_id=' + encodeURIComponent(oid) + '&stream=1', '_blank');
+                  }
+                }
                 alert('Error processing payment: ' + (result.message || 'Unknown error'));
                 if (result.debug) {
                     console.error('Debug info:', result.debug);
@@ -168,6 +185,11 @@ window.onload = function () {
             }
         } catch (error) {
             console.error('Payment error:', error);
+            // Try to show receipt anyway; the receipt page will show a helpful message if unavailable
+            const oid = (orderIds && orderIds[0]) || null;
+            if (oid) {
+              try { showReceipt(oid); } catch (e) { window.open('../backend/generate_receipt.php?order_id=' + encodeURIComponent(oid) + '&stream=1', '_blank');}
+            }
             alert('Network error processing payment. Check console for details.');
         }
     });
@@ -240,18 +262,34 @@ if (successfulPaymentLink) {
           const result = await response.json();
           console.log("GCash payment response:", result);
 
-          if (result.status === 'success') {
-              alert('✅ GCash payment processed successfully!\nReference: ' + referenceNumber + '\nRedirecting to order list.');
-              window.location.href = "../List-Orders/Orderlist.php";
-          } else {
-              alert('❌ Error processing payment: ' + (result.message || 'Unknown error'));
+      if (result.status === 'success') {
+        const oid = result.order_id || (orderIds && orderIds[0]) || null;
+        try {
+          if (!oid) throw new Error('Missing order_id in response');
+          showReceipt(oid);
+        } catch (e) {
+          console.error('Failed to display receipt inline:', e);
+          alert('GCash payment processed! Opening receipt in a new tab...');
+          if (oid) {
+          window.open('../backend/generate_receipt.php?order_id=' + encodeURIComponent(oid) + '&stream=1', '_blank');
+          }
+        }
+      } else {
+        // Show receipt anyway if possible
+        const oid = (orderIds && orderIds[0]) || null;
+        if (oid) {
+        try { showReceipt(oid); } catch (e) { window.open('../backend/generate_receipt.php?order_id=' + encodeURIComponent(oid) + '&stream=1', '_blank'); }
+        }
+        alert('❌ Error processing payment: ' + (result.message || 'Unknown error'));
               if (result.debug) {
                   console.error('Debug info:', result.debug);
               }
           }
       } catch (error) {
           console.error('GCash payment error:', error);
-          alert('⚠️ Network error processing payment. Check console for details.');
+      const oid = (orderIds && orderIds[0]) || null;
+      if (oid) { try { showReceipt(oid); } catch (e) { window.open('../backend/generate_receipt.php?order_id=' + encodeURIComponent(oid) + '&stream=1', '_blank'); } }
+      alert('⚠️ Network error processing payment. Check console for details.');
       }
   });
 }
@@ -302,18 +340,31 @@ if (qrphSuccessfulPaymentLink) {
           const result = await response.json();
           console.log("QRPH payment response:", result);
 
-          if (result.status === 'success') {
-              alert('✅ QRPH payment processed successfully!\nReference: ' + referenceNumber + '\nRedirecting to order list.');
-              window.location.href = "../List-Orders/Orderlist.php";
-          } else {
-              alert('❌ Error processing payment: ' + (result.message || 'Unknown error'));
+      if (result.status === 'success') {
+        const oid = result.order_id || (orderIds && orderIds[0]) || null;
+        try {
+          if (!oid) throw new Error('Missing order_id in response');
+          showReceipt(oid);
+        } catch (e) {
+          console.error('Failed to display receipt inline:', e);
+          alert('QRPH payment processed! Opening receipt in a new tab...');
+          if (oid) {
+          window.open('../backend/generate_receipt.php?order_id=' + encodeURIComponent(oid) + '&stream=1', '_blank');
+          }
+        }
+      } else {
+        const oid = (orderIds && orderIds[0]) || null;
+        if (oid) { try { showReceipt(oid); } catch (e) { window.open('../backend/generate_receipt.php?order_id=' + encodeURIComponent(oid) + '&stream=1', '_blank'); } }
+        alert('❌ Error processing payment: ' + (result.message || 'Unknown error'));
               if (result.debug) {
                   console.error('Debug info:', result.debug);
               }
           }
       } catch (error) {
           console.error('QRPH payment error:', error);
-          alert('⚠️ Network error processing payment. Check console for details.');
+      const oid = (orderIds && orderIds[0]) || null;
+      if (oid) { try { showReceipt(oid); } catch (e) { window.open('../backend/generate_receipt.php?order_id=' + encodeURIComponent(oid) + '&stream=1', '_blank'); } }
+      alert('⚠️ Network error processing payment. Check console for details.');
       }
   });
 }
@@ -349,3 +400,101 @@ if (qrphSuccessfulPaymentLink) {
     });
   }
 };
+
+// Also initialize on DOMContentLoaded for faster binding (in case users click before images load)
+if (document.readyState === 'interactive' || document.readyState === 'complete') {
+  try { if (typeof window.onload === 'function') window.onload(); } catch (e) { console.error(e); }
+} else {
+  document.addEventListener('DOMContentLoaded', function() {
+    try { if (typeof window.onload === 'function') window.onload(); } catch (e) { console.error(e); }
+  });
+}
+
+// Utilities: Inline receipt preview and printing
+function showReceipt(orderId) {
+  let receiptSection = document.getElementById('receiptSection');
+  let receiptFrame = document.getElementById('receiptFrame');
+  let printBtn = document.getElementById('printReceiptBtn');
+  let closeBtn = document.getElementById('closeReceiptBtn');
+
+  // If not present in DOM, create it dynamically
+  if (!receiptSection || !receiptFrame) {
+    const overlay = document.createElement('div');
+    overlay.id = 'receiptSection';
+    overlay.style.cssText = 'display:none; position:fixed; top:0;left:0;right:0;bottom:0; background:rgba(0,0,0,0.6); z-index:2147483647; align-items:center; justify-content:center;';
+
+    const panel = document.createElement('div');
+    panel.style.cssText = 'background:#fff; width:90%; max-width:900px; height:90%; border-radius:8px; box-shadow:0 10px 30px rgba(0,0,0,0.3); display:flex; flex-direction:column;';
+    const bar = document.createElement('div');
+    bar.style.cssText = 'padding:10px 14px; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid #eee;';
+    const h = document.createElement('h3');
+    h.textContent = 'Receipt Preview';
+    h.style.margin = '0';
+    h.style.fontFamily = 'Arial, sans-serif';
+
+    printBtn = document.createElement('button');
+    printBtn.id = 'printReceiptBtn';
+    printBtn.textContent = 'Print';
+    printBtn.style.cssText = 'margin-right:8px; padding:8px 12px; background:#2b7cff; color:#fff; border:none; border-radius:4px; cursor:pointer;';
+    closeBtn = document.createElement('button');
+    closeBtn.id = 'closeReceiptBtn';
+    closeBtn.textContent = 'Close';
+    closeBtn.style.cssText = 'padding:8px 12px; background:#888; color:#fff; border:none; border-radius:4px; cursor:pointer;';
+    const btnWrap = document.createElement('div');
+    btnWrap.appendChild(printBtn);
+    btnWrap.appendChild(closeBtn);
+
+    bar.appendChild(h);
+    bar.appendChild(btnWrap);
+
+    const body = document.createElement('div');
+    body.style.cssText = 'flex:1;';
+    receiptFrame = document.createElement('iframe');
+    receiptFrame.id = 'receiptFrame';
+    receiptFrame.title = 'Receipt';
+    receiptFrame.style.cssText = 'width:100%; height:100%; border:0;';
+    receiptFrame.src = 'about:blank';
+    body.appendChild(receiptFrame);
+
+    panel.appendChild(bar);
+    panel.appendChild(body);
+    overlay.appendChild(panel);
+    document.body.appendChild(overlay);
+
+    receiptSection = overlay; // rebind
+  }
+
+  console.log('[Receipt] Showing receipt for order', orderId);
+
+  const url = '../backend/generate_receipt.php?order_id=' + encodeURIComponent(orderId) + '&stream=1';
+  receiptFrame.src = url;
+  receiptSection.style.display = 'flex';
+
+  // Attach button handlers (idempotent)
+  if (printBtn && !printBtn.dataset.bound) {
+    printBtn.addEventListener('click', function() {
+      // Try printing the iframe; if blocked, open in new tab
+      try {
+        const f = document.getElementById('receiptFrame');
+        if (f && f.contentWindow) {
+          f.contentWindow.focus();
+          f.contentWindow.print();
+        } else {
+          window.open(url, '_blank');
+        }
+      } catch (e) {
+        window.open(url, '_blank');
+      }
+    });
+    printBtn.dataset.bound = '1';
+  }
+  if (closeBtn && !closeBtn.dataset.bound) {
+    closeBtn.addEventListener('click', function() {
+      receiptSection.style.display = 'none';
+    });
+    closeBtn.dataset.bound = '1';
+  }
+
+  // Scroll into view (best effort)
+  try { receiptSection.scrollIntoView({ behavior: 'smooth' }); } catch (e) {}
+}

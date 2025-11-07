@@ -25,7 +25,15 @@ if (!$data) {
 error_log("Decoded payment data: " . print_r($data, true));
 
 // FIXED: Try multiple sources for order_id
-$order_id = $data['order_id'] ?? $_SESSION['pending_order_id'] ?? null;
+$order_id = $data['order_id'] ?? null;
+// Fallback: if only order_ids array was sent, use the first element
+if (!$order_id && isset($data['order_ids']) && is_array($data['order_ids']) && count($data['order_ids']) > 0) {
+    $order_id = intval($data['order_ids'][0]);
+}
+// Fallback to session if still not provided
+if (!$order_id) {
+    $order_id = $_SESSION['pending_order_id'] ?? null;
+}
 $payment_method = $data['payment_method'] ?? 'cash';
 $discount_type = $data['discount_type'] ?? 'none';
 $discount_amount = floatval($data['discount_amount'] ?? 0);
