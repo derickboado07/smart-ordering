@@ -96,9 +96,7 @@ if(isset($_SESSION['error'])): ?>
         </div>
 
         <!-- forget and register part -->
-        <div class="register-link">
-            Registration is disabled. Please contact your administrator to request an account.
-        </div>
+        <!-- registration link removed -->
         <div class="forgot-link">
             Forgot your password?
             <a href="../forgot_password/forgot.php">Click Here</a>
