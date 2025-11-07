@@ -23,6 +23,13 @@ $order_ids = [$order_id];
   <title>Cash Payment</title>
 </head>
 <body>
+  <!-- Back button (fixed top-right with icon) -->
+  <a href="../HomePage/MainHome.php" id="backToHome" title="Back to Home" style="position:fixed; top:14px; right:16px; display:flex; align-items:center; gap:8px; padding:8px 12px; background:linear-gradient(135deg,#ffffff,#f6f6f6); color:#333; text-decoration:none; border-radius:24px; border:1px solid #ddd; box-shadow:0 6px 18px rgba(0,0,0,0.08); z-index:1000;">
+    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#333" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M15 18l-6-6 6-6" />
+    </svg>
+    <span style="font-weight:600; font-size:14px;">Back</span>
+  </a>
   <!-- Header -->
   <div class="header">
     <img src="../Images/Icon.png" alt="Logo">
