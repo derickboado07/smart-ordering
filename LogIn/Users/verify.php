@@ -76,7 +76,7 @@ try {
     $mail->SMTPSecure = 'tls';
     $mail->Port       = 587;
 
-    $mail->setFrom('ARAT_KAPE@gmail.com', 'ARAT KAPE Admin');
+   $mail->setFrom('ARAT_KAPE@gmail.com', 'Arat Coffee MCU Admin');
     $mail->addAddress('ARAT_KAPE@gmail.com', 'Admin'); // Admin email
 
     $mail->isHTML(true);

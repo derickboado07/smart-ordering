@@ -24,7 +24,7 @@ function send_otp_email($to, $otp) {
         $mail->SMTPSecure = 'tls';
         $mail->Port = 587;
 
-        $mail->setFrom('ARAT_KAPE@gmail.com', 'ARAT KAPE');
+    $mail->setFrom('ARAT_KAPE@gmail.com', 'Arat Coffee MCU');
         $mail->addAddress($to);
         $mail->isHTML(true);
         $mail->Subject = 'Password Reset OTP';
@@ -201,17 +201,36 @@ $success = $_SESSION['fp_success'] ?? null; unset($_SESSION['fp_success']);
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Change / Forgot Password</title>
   <link rel="stylesheet" href="../Users/design.css">
-  <style>
-    body{background-image:url('../Images/BG.jpg');background-size:cover;font-family:'Montserrat',sans-serif}
-    .card{max-width:420px;margin:60px auto;background:rgba(255,255,255,0.95);padding:22px;border-radius:10px}
-    input{width:100%;padding:10px;margin-top:10px;border-radius:6px;border:1px solid #ccc}
-    button{margin-top:12px;padding:10px;border-radius:6px;border:0;background:#7b4f2e;color:#fff;width:100%}
-    .msg{padding:10px;border-radius:6px;margin-bottom:10px}
-    .err{background:#ffe7e6;color:#b00020}
-    .ok{background:#e6ffef;color:#0a8a3a}
-    .small{font-size:13px;color:#555;margin-top:8px}
-    .link{display:inline-block;margin-top:8px}
-  </style>
+    <style>
+        /* Base styles */
+        body{background-image:url('../Images/BG.jpg');background-size:cover;background-position:center;font-family:'Montserrat',sans-serif;margin:0;padding:0}
+        .card{max-width:420px;margin:60px auto;background:rgba(255,255,255,0.95);padding:22px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.06)}
+        h2{margin:0 0 10px;font-size:22px;color:#333}
+        input{width:100%;padding:12px 14px;margin-top:10px;border-radius:6px;border:1px solid #ccc;font-size:15px;box-sizing:border-box}
+        button{margin-top:12px;padding:12px 14px;border-radius:6px;border:0;background:#7b4f2e;color:#fff;width:100%;font-size:15px}
+        .msg{padding:10px;border-radius:6px;margin-bottom:10px}
+        .err{background:#ffe7e6;color:#b00020}
+        .ok{background:#e6ffef;color:#0a8a3a}
+        .small{font-size:13px;color:#555;margin-top:8px}
+        .link{display:inline-block;margin-top:8px}
+
+        /* Tablet */
+        @media (min-width: 768px) and (max-width: 1024px) {
+            .card{max-width:600px;padding:26px;margin:40px auto}
+            h2{font-size:24px}
+            input, button{font-size:16px}
+        }
+
+        /* Mobile phones */
+        @media (max-width: 767px) {
+            .card{max-width:95%;margin:20px auto;padding:18px;border-radius:8px}
+            h2{font-size:20px;text-align:center}
+            input{padding:12px;font-size:15px}
+            button{padding:12px;font-size:15px}
+            .small{font-size:13px}
+            .msg{font-size:14px}
+        }
+    </style>
 </head>
 <body>
   <div class="card">

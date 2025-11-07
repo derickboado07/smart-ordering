@@ -48,7 +48,7 @@ if(isset($_POST['action'], $_POST['id'])){
             $mail->Port = 587;
 
             // Recipient and email content settings
-            $mail->setFrom('ARAT_KAPE@gmail.com','ARAT KAPE Admin'); // Sender info
+            $mail->setFrom('ARAT_KAPE@gmail.com','Arat Coffee MCU Admin'); // Sender info
             $mail->addAddress($user['email'],$user['full_name']);     // Recipient info
             $mail->isHTML(true);
             $mail->Subject = 'ARAT KAPE Account Approved';           // Email subject

@@ -41,7 +41,7 @@ try {
     $mail->SMTPSecure = 'tls';
     $mail->Port = 587;
 
-    $mail->setFrom('ARAT_KAPE@gmail.com', 'ARAT KAPE OTP');
+    $mail->setFrom('ARAT_KAPE@gmail.com', 'Arat Coffee MCU');
     $mail->addAddress($email);
     $mail->isHTML(true);
     $mail->Subject = "Password Reset OTP";

@@ -48,7 +48,7 @@ try {
     $mail->SMTPSecure = 'tls';
     $mail->Port = 587;
 
-    $mail->setFrom('YOUR_EMAIL@gmail.com', 'ARAT KAPE Admin');
+    $mail->setFrom('YOUR_EMAIL@gmail.com', 'Arat Coffee MCU');
     $mail->addAddress($email);
     $mail->isHTML(true);
     $mail->Subject = 'Your New OTP Code';
