@@ -40,6 +40,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Edit Admin Details</title>
     <link rel="stylesheet" href="Admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -57,7 +58,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
-        }
         .edit-form h2 {
             text-align: center;
             margin-bottom: 20px;
@@ -90,6 +90,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
         .back-link:hover {
             text-decoration: underline;
+        }
+
+        /* Responsive: center form and fit small screens */
+        @media (max-width: 768px) {
+          .edit-form {
+            left: 50%;
+            max-width: 480px;
+            width: 90%;
+            padding: 20px;
+          }
+        }
+
+        @media (max-width: 480px) {
+          .edit-form {
+            left: 50%;
+            max-width: 420px;
+            width: 92%;
+            padding: 16px;
+          }
+          .edit-form h2 { font-size: 20px; }
         }
     </style>
 </head>

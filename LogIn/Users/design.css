@@ -87,11 +87,11 @@ html, body {
    border: #794a3a solid 3px;
    border-radius: 20px;
    text-align: center;
-   width: 400px;
-   height: 95%;
+  width: 400px;
+  height: 95%;
    box-shadow: 0 0 20px rgba(0,0,0,0.5);
    color: #fff;
-   margin: 10px;
+  margin: 10px;
 }
 
 .logo{
@@ -237,5 +237,36 @@ html, body {
 .login-container.active {
     opacity: 1;
     transform: translateY(0);
+}
+
+/* Responsive adjustments */
+@media (max-width: 992px) {
+  html, body { overflow-y: auto; }
+  .quotes { right: 10px; top: 10px; transform: scale(0.9); }
+}
+
+@media (max-width: 768px) {
+  body { overflow-y: auto; }
+  .login-container {
+    width: 90vw;
+    max-width: 420px;
+    height: auto;
+    margin: 20px auto;
+    padding-bottom: 20px;
+  }
+  .logo { width: 220px; height: 220px; margin-bottom: -10px; }
+  .input-row { margin-left: 0; justify-content: center; }
+  .input-row input { width: 100%; max-width: 320px; font-size: 15px; }
+  .icon-box { width: 32px; height: 32px; padding: 8px; }
+  .login-button { width: 60%; }
+}
+
+@media (max-width: 576px) {
+  .quotes { display: none; }
+  .login-container { width: 94vw; max-width: 360px; }
+  .logo { width: 180px; height: 180px; }
+  .input-group label { font-size: 14px; }
+  .input-row input { max-width: none; width: calc(100% - 60px); }
+  .login-button { width: 80%; font-size: 15px; }
 }
 

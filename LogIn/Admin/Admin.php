@@ -22,6 +22,7 @@ $approvedUsers = $conn->query("
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Admin Dashboard</title>
 <link rel="stylesheet" href="Admin.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -68,7 +69,7 @@ $approvedUsers = $conn->query("
 <?php include 'include/navbar.php'; ?>
 
 <!-- MAIN CONTENT -->
-<div class="main-content" style="margin-left: 120px;">
+<div class="main-content">
     <!-- 🔄 Refresh Button on the Top Right -->
     <button class="refresh-btn" onclick="refreshDashboard()">⟳ Refresh Dashboard</button>
 
