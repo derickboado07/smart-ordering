@@ -66,12 +66,33 @@ table {
     border-radius: 8px;
     overflow: hidden;
 }
+/* Enhanced table wrapper */
+.table-wrapper {
+    background: #fff;
+    border: 1px solid #e2e2e2;
+    border-radius: 12px;
+    padding: 8px 8px 4px 8px;
+    margin-top: 12px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
+    overflow-x: auto;
+}
+ .table-wrapper::-webkit-scrollbar { height: 8px; }
+ .table-wrapper::-webkit-scrollbar-track { background: #f1f1f1; border-radius: 4px; }
+ .table-wrapper::-webkit-scrollbar-thumb { background: #b87333; border-radius: 4px; }
+ .table-wrapper::-webkit-scrollbar-thumb:hover { background: #6d3b2d; }
 
 table th, table td {
     padding: 12px;
     text-align: left;
     border-bottom: 1px solid #ddd;
 }
+table thead th {
+    font-size: 12px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+}
+table tbody tr:nth-child(even) { background:#fafafa; }
+table tbody tr:hover { background:#f0f7ff; }
 
 table th {
     background-color: #333;
@@ -110,6 +131,30 @@ button {
     box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     text-transform: uppercase;
     letter-spacing: 0.5px;
+}
+/* Compact action cell layout on narrow screens */
+@media (max-width: 600px) {
+    td:last-child { display:flex; flex-direction:column; gap:6px; }
+    .edit-btn, .remove-btn, button.approve, button { margin-right:0; }
+}
+
+/* Ensure table scrolls horizontally instead of clipping on small screens */
+@media (max-width: 992px) {
+    .table-wrapper table { width: max-content; min-width: 900px; }
+}
+@media (max-width: 768px) {
+    .table-wrapper table { width: max-content; min-width: 800px; }
+    /* Let email (col 4) and username (col 3) wrap so they don't get cut */
+    #usersTable th:nth-child(3), #usersTable td:nth-child(3),
+    #usersTable th:nth-child(4), #usersTable td:nth-child(4),
+    #pendingUsersTable th:nth-child(3), #pendingUsersTable td:nth-child(3),
+    #pendingUsersTable th:nth-child(4), #pendingUsersTable td:nth-child(4) {
+        white-space: normal !important;
+        word-break: break-word;
+    }
+}
+@media (max-width: 600px) {
+    .table-wrapper table { min-width: 720px; }
 }
 
 .edit-btn {

@@ -62,6 +62,18 @@ $approvedUsers = $conn->query("
 .create-user-row button[type="submit"] { padding:12px 20px; background:#2ecc71; color:white; border:none; border-radius:6px; cursor:pointer; font-size:16px; height:48px; }
 .create-user-section h2 { margin:0 0 8px 0; font-size:20px; }
 .create-user-note { margin-top:10px; color:#666; }
+
+/* Responsive improvements for Create User + Refresh button */
+@media (max-width: 768px) {
+    .refresh-btn { position: static; right: auto; top: auto; display: inline-block; margin: 8px 0 0 auto; }
+    .create-user-row { flex-wrap: wrap; }
+    .create-user-row input[type="text"], .create-user-row input[type="email"] { flex: 1 1 100%; min-width: 0; }
+    .create-user-row button[type="submit"] { width: 100%; margin-top: 8px; }
+}
+@media (max-width: 480px) {
+    .refresh-btn { width: 100%; text-align: center; }
+    .create-user-section h2 { font-size: 24px; }
+}
 </style>
 </head>
 <body>
@@ -92,6 +104,7 @@ $approvedUsers = $conn->query("
 
     <!-- Pending Users Table -->
     <?php if ($pendingUsers->num_rows > 0): ?>
+        <div class="table-wrapper">
         <table id="pendingUsersTable">
             <thead>
                 <tr>
@@ -117,12 +130,14 @@ $approvedUsers = $conn->query("
                 <?php endwhile; ?>
             </tbody>
         </table>
+        </div>
     <?php else: ?>
         
     <?php endif; ?>
 
     <!-- Approved Users Table -->
     <h1 style="margin-top:40px;">Active Users</h1>
+    <div class="table-wrapper">
     <table id="usersTable">
         <thead>
             <tr>
@@ -158,6 +173,7 @@ $approvedUsers = $conn->query("
             <?php endwhile; ?>
         </tbody>
     </table>
+    </div>
 </div>
 
 <script>
