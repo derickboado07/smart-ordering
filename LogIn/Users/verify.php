@@ -23,7 +23,7 @@ $confirm   = trim($_POST['confirm_password']);
 if ($password !== $confirm) {
     echo "<script>
     alert('❌ Passwords do not match!');
-    window.location.href='../Users/Userlog.php';
+   window.location.href='../Users/user.php';
     </script>";
     exit();
 }
