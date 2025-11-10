@@ -281,9 +281,13 @@ include '../LogIn/Admin/include/navbar.php';
 
       const ctx = document.getElementById("paymentChart").getContext("2d");
 
-      if (data.length > 0) {
+        if (data.length > 0) {
         const labels = data.map(item => item.payment_method);
         const percentages = data.map(item => parseFloat(item.percentage));
+
+        // Map colors to payment labels so legend colors remain consistent regardless of label order
+        const colorMap = { 'Cash': 'green', 'GCash': 'blue', 'QRPH': 'red', 'Other': 'gray' };
+        const backgroundColors = labels.map(l => colorMap[l] || 'gray');
 
         window.paymentChart = new Chart(ctx, {
           type: "pie",
@@ -291,7 +295,7 @@ include '../LogIn/Admin/include/navbar.php';
             labels: labels,
             datasets: [{
               data: percentages,
-              backgroundColor: ["green", "blue", "red"],
+              backgroundColor: backgroundColors,
               borderWidth: 1
             }]
           },
